@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/site/:path*",
+      "destination": "https://xaki.app/site/:path*",
+      "permanent": true
+    }
+  ]
+}
