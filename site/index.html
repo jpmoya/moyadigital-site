@@ -189,6 +189,40 @@
       border-radius: 32px;
     }
 
+    /* Interactive phone frame for demo iframe */
+    .phone-frame-live {
+      position: relative;
+      width: 375px;
+      aspect-ratio: 390 / 844;
+      border-radius: 44px;
+      padding: 8px;
+      background: #0a0a0a;
+      box-shadow:
+        0 40px 80px -30px rgba(0,0,0,0.45),
+        0 15px 30px -10px rgba(0,0,0,0.2),
+        inset 0 0 0 1px rgba(255,255,255,0.06);
+    }
+    .phone-frame-live::before {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 24px;
+      background: #0a0a0a;
+      border-radius: 14px;
+      z-index: 2;
+    }
+    .phone-frame-live iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 36px;
+      background: #fafafa;
+    }
+
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
@@ -246,8 +280,8 @@
                 Start with Dr. Kai
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
-              <a href="#how" class="btn-ghost inline-flex items-center gap-2 text-sm font-medium px-5 py-3 rounded-full">
-                See how it works
+              <a href="#demo" class="btn-ghost inline-flex items-center gap-2 text-sm font-medium px-5 py-3 rounded-full">
+                Try the demo
               </a>
             </div>
 
@@ -400,46 +434,34 @@
 
     <div class="divider-grad"></div>
 
-    <!-- ================= SEE IT IN ACTION ================= -->
-    <section class="relative py-24 sm:py-32 overflow-hidden">
+    <!-- ================= TRY THE DEMO ================= -->
+    <section id="demo" class="relative py-24 sm:py-32 overflow-hidden">
       <div class="absolute inset-0 accent-glow pointer-events-none" aria-hidden="true"></div>
       <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
-        <p class="reveal step-num">03 · THE PRODUCT</p>
+        <p class="reveal step-num">03 · TRY IT</p>
         <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl text-ink-100">
-          Designed for the way you actually live.
+          See it for yourself.
         </h2>
         <p class="reveal mt-6 max-w-xl text-ink-300 text-[17px] leading-relaxed">
-          Log in seconds. Glance at a whole week. Dr. Kai is watching the patterns in the background.
+          This is the real app with demo data. Tap around — log a workout, check your macros, read Dr. Kai's insights. Data resets on refresh.
         </p>
 
-        <div class="reveal mt-14 grid gap-6 sm:gap-8 grid-cols-2 lg:grid-cols-4">
-          <figure>
-            <div class="phone-frame">
-              <img src="./screens/home.png" alt="Daily overview: activity heatmap, water, sleep, and quick logs" loading="lazy" width="390" height="844" />
-            </div>
-            <figcaption class="mt-4 text-xs mono text-ink-400">DAILY OVERVIEW</figcaption>
-          </figure>
+        <!-- Desktop: interactive phone frame with iframe -->
+        <div class="reveal mt-14 hidden lg:flex justify-center">
+          <div class="phone-frame-live">
+            <iframe src="https://demo.xaki.app" title="Xaki interactive demo" loading="lazy" allow="clipboard-write"></iframe>
+          </div>
+        </div>
 
-          <figure>
-            <div class="phone-frame">
-              <img src="./screens/workouts.png" alt="Workout history by day with sets, weight, and reps" loading="lazy" width="390" height="844" />
-            </div>
-            <figcaption class="mt-4 text-xs mono text-ink-400">WORKOUTS</figcaption>
-          </figure>
-
-          <figure>
-            <div class="phone-frame">
-              <img src="./screens/meal-plan.png" alt="Daily macro goals and meal plan by day" loading="lazy" width="390" height="844" />
-            </div>
-            <figcaption class="mt-4 text-xs mono text-ink-400">MEAL PLAN</figcaption>
-          </figure>
-
-          <figure>
-            <div class="phone-frame">
-              <img src="./screens/health.png" alt="Pain, injuries, and blood work tracking" loading="lazy" width="390" height="844" />
-            </div>
-            <figcaption class="mt-4 text-xs mono text-ink-400">PAIN &amp; INJURIES</figcaption>
-          </figure>
+        <!-- Mobile: CTA to open demo in new tab -->
+        <div class="reveal mt-10 lg:hidden">
+          <div class="rounded-2xl card p-7 text-center">
+            <p class="text-ink-300 text-[15px] leading-relaxed mb-5">The interactive demo works best on a larger screen. Tap below to try it on your phone.</p>
+            <a href="https://demo.xaki.app" target="_blank" rel="noopener" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5 rounded-full">
+              Open the demo
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -686,6 +708,7 @@
       <div>
         <p class="text-xs mono text-ink-400">PRODUCT</p>
         <ul class="mt-4 space-y-3 text-sm">
+          <li><a href="#demo" class="text-ink-200 hover:text-accent-deep transition-colors">Try the demo</a></li>
           <li><a href="/faq" class="text-ink-200 hover:text-accent-deep transition-colors">FAQ</a></li>
           <li><a href="#how" class="text-ink-200 hover:text-accent-deep transition-colors">How it works</a></li>
           <li><a href="/signup" class="text-ink-200 hover:text-accent-deep transition-colors">Start with Dr. Kai</a></li>
