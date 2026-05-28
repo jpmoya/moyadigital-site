@@ -3,18 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xaki — Meet Dr. Kai, Your AI Health Specialist</title>
-  <meta name="description" content="Dr. Kai connects the dots across your training, nutrition, digestion, sleep, and injuries. The patterns are in your data. Xaki reads them." />
+  <title>Xaki — Track Training, Nutrition & Digestion Patterns | AI Fitness Coach for Gut Issues</title>
+  <meta name="description" content="Your gut doesn't flare from one thing. Track your training, meals, digestion, and sleep — Kai finds the patterns between them. Built for people serious about fitness who deal with digestive challenges." />
 
-  <meta property="og:title" content="Xaki — Meet Dr. Kai, Your AI Health Specialist" />
-  <meta property="og:description" content="Dr. Kai connects the dots across your training, nutrition, digestion, sleep, and injuries. The patterns are in your data. Xaki reads them." />
+  <meta property="og:title" content="Xaki — Track Training, Nutrition & Digestion Patterns | AI Fitness Coach for Gut Issues" />
+  <meta property="og:description" content="Your gut doesn't flare from one thing. Track your training, meals, digestion, and sleep — Kai finds the patterns between them. Built for people serious about fitness who deal with digestive challenges." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://xaki.app/site" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#fafafa" />
   <meta name="color-scheme" content="light" />
+  <meta name="impact-site-verification" value="452780af-810c-4edb-b175-b52449bdc2c4" />
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0a0a'/><path d='M8 22 L16 12 L24 22 M10 18 L22 18' stroke='%2300E5A3' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <link rel="icon" type="image/png" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/xaki-logo-transparent.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,8 +32,6 @@
             mono: ['Geist Mono', 'ui-monospace', 'monospace'],
           },
           colors: {
-            // Semantic "ink" tokens — light-mode palette
-            // ink-950 = page background (lightest), ink-100 = primary text (darkest)
             ink: {
               950: '#fafafa',
               900: '#ffffff',
@@ -46,9 +46,9 @@
               100: '#0a0a0a',
             },
             accent: {
-              DEFAULT: '#00875F',     // text/icons — AA on white
-              bright: '#00E5A3',      // CTA button background
-              deep: '#006F4D',        // hover / strong emphasis
+              DEFAULT: '#00875F',
+              bright: '#00E5A3',
+              deep: '#006F4D',
               soft: '#00E5A31F',
               muted: '#00E5A333',
             },
@@ -69,7 +69,6 @@
 
     .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
 
-    /* Subtle grid texture on light */
     .grid-bg {
       background-image:
         linear-gradient(rgba(10,10,10,0.035) 1px, transparent 1px),
@@ -79,54 +78,70 @@
       -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 0%, #000 60%, transparent 95%);
     }
 
-    /* Radial glow used behind hero + closing CTA */
     .accent-glow {
       background: radial-gradient(60% 50% at 50% 0%, rgba(0,229,163,0.18) 0%, rgba(0,229,163,0) 65%);
     }
 
-    /* Reveal animation */
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
 
-    /* Hairline borders */
     .hairline { border-color: rgba(10,10,10,0.08); }
     .hairline-strong { border-color: rgba(10,10,10,0.12); }
 
-    /* Accent pulse on insight dot */
     @keyframes pulseDot {
       0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,163,0.55); }
       50%      { box-shadow: 0 0 0 8px rgba(0,229,163,0); }
     }
     .pulse-dot { animation: pulseDot 2.4s ease-in-out infinite; }
 
-    /* Hover lift for cards */
+    /* Hero carousel */
+    .carousel-track { position: relative; min-height: 340px; }
+    .carousel-card {
+      position: absolute; inset: 0;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+    }
+    .carousel-card.active {
+      opacity: 1; transform: translateY(0);
+      pointer-events: auto;
+    }
+    .carousel-dot {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: transparent;
+      transition: background 0.3s ease, transform 0.3s ease;
+      cursor: pointer; border: none; padding: 0;
+      position: relative;
+    }
+    .carousel-dot::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(10,10,10,0.15);
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .carousel-dot.active::after {
+      background: #00875F; transform: translate(-50%, -50%) scale(1.25);
+    }
+
     .lift { transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
     .lift:hover { transform: translateY(-2px); border-color: rgba(0,135,95,0.4); box-shadow: 0 12px 30px -12px rgba(0,0,0,0.1); }
 
-    /* Focus ring */
     :focus-visible { outline: 2px solid #00875F; outline-offset: 2px; border-radius: 6px; }
 
-    /* Heatmap cells (light → vivid) */
-    .hm-cell { width: 10px; height: 10px; border-radius: 2px; background: #eeeef1; }
-    .hm-1 { background: #c5ebd8; }
-    .hm-2 { background: #73d6aa; }
-    .hm-3 { background: #10b57e; }
-    .hm-4 { background: #00875f; }
-
-    /* Line chart stroke animation */
     @keyframes dashIn { from { stroke-dashoffset: 400; } to { stroke-dashoffset: 0; } }
     .sparkline { stroke-dasharray: 400; animation: dashIn 1.6s ease-out forwards; }
 
-    /* Nav backdrop */
     .nav-blur { backdrop-filter: saturate(140%) blur(10px); -webkit-backdrop-filter: saturate(140%) blur(10px); }
 
-    /* Subtle divider rule */
     .divider-grad {
       height: 1px;
       background: linear-gradient(90deg, transparent 0%, rgba(10,10,10,0.08) 20%, rgba(10,10,10,0.08) 80%, transparent 100%);
     }
 
-    /* Step numbers */
     .step-num {
       font-family: 'Geist Mono', ui-monospace, monospace;
       color: #006F4D;
@@ -134,10 +149,8 @@
       letter-spacing: 0.08em;
     }
 
-    /* Scroll padding for anchor links under sticky nav */
     :root { scroll-padding-top: 72px; }
 
-    /* CTA buttons */
     .btn-primary {
       background: #00E5A3;
       color: #0a0a0a;
@@ -153,43 +166,27 @@
     }
     .btn-ghost:hover { background: #f0f0f3; border-color: rgba(10,10,10,0.2); }
 
-    /* Subtle card surface on page bg */
     .card { background: #ffffff; border: 1px solid rgba(10,10,10,0.08); }
 
-    /* Phone screenshot frames */
     .phone-frame {
       position: relative;
-      aspect-ratio: 390 / 844;
+      width: 260px;
       border-radius: 38px;
       padding: 6px;
       background: #0a0a0a;
+      overflow: hidden;
       box-shadow:
         0 30px 60px -30px rgba(0,0,0,0.35),
         0 10px 20px -10px rgba(0,0,0,0.15),
         inset 0 0 0 1px rgba(255,255,255,0.04);
     }
-    .phone-frame::before {
-      content: "";
-      position: absolute;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 96px;
-      height: 22px;
-      background: #0a0a0a;
-      border-radius: 12px;
-      z-index: 2;
-    }
     .phone-frame img {
       display: block;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
+      height: auto;
       border-radius: 32px;
     }
 
-    /* Interactive phone frame for demo iframe */
     .phone-frame-live {
       position: relative;
       width: 375px;
@@ -205,14 +202,16 @@
     .phone-frame-live::before {
       content: "";
       position: absolute;
-      top: 16px;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
-      width: 100px;
-      height: 24px;
-      background: #0a0a0a;
-      border-radius: 14px;
+      width: 80px;
+      height: 20px;
+      background: #1a1a1a;
+      border-radius: 10px;
       z-index: 2;
+      pointer-events: none;
+      opacity: 0;
     }
     .phone-frame-live iframe {
       display: block;
@@ -223,11 +222,123 @@
       background: #fafafa;
     }
 
-    /* Reduced motion */
+    /* Chat conversation animation */
+    .chat-phone {
+      width: 300px;
+      max-width: 100%;
+      border-radius: 38px;
+      padding: 6px;
+      background: #0a0a0a;
+      box-shadow:
+        0 30px 60px -30px rgba(0,0,0,0.35),
+        0 10px 20px -10px rgba(0,0,0,0.15),
+        inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+    .chat-screen {
+      background: #fafafa;
+      border-radius: 32px;
+      padding: 24px 16px 20px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .chat-bubble {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 13px;
+      line-height: 1.45;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .chat-bubble.visible { opacity: 1; transform: translateY(0); }
+    .chat-user {
+      align-self: flex-end;
+      background: #00E5A3;
+      color: #0a0a0a;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-kai {
+      align-self: flex-start;
+      background: #ffffff;
+      color: #27272a;
+      border: 1px solid rgba(10,10,10,0.08);
+      border-bottom-left-radius: 4px;
+    }
+    .chat-label {
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: #a1a1aa;
+      padding: 4px 0;
+    }
+    .chat-label-left { align-self: flex-start; }
+    .chat-label-right { align-self: flex-end; }
+    .chat-voice {
+      align-self: flex-end;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #00E5A3;
+      color: #0a0a0a;
+      padding: 10px 14px;
+      border-radius: 18px;
+      border-bottom-right-radius: 4px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .chat-voice.visible { opacity: 1; transform: translateY(0); }
+    .chat-waveform { display: flex; align-items: center; gap: 2px; height: 16px; }
+    .chat-waveform span {
+      width: 3px;
+      background: #0a0a0a;
+      border-radius: 2px;
+      opacity: 0.7;
+    }
+    .chat-reco {
+      align-self: flex-start;
+      background: #ffffff;
+      border: 1px solid rgba(0,135,95,0.25);
+      border-bottom-left-radius: 4px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      max-width: 85%;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .chat-reco.visible { opacity: 1; transform: translateY(0); }
+    .chat-reco-title {
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: #006F4D;
+      margin-bottom: 6px;
+    }
+    .chat-reco-item {
+      font-size: 12px;
+      color: #27272a;
+      line-height: 1.5;
+      padding: 3px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .chat-reco-num {
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      font-size: 10px;
+      color: #006F4D;
+      flex-shrink: 0;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
       .sparkline { animation: none; stroke-dashoffset: 0; }
       .pulse-dot { animation: none; }
+      .chat-bubble, .chat-voice, .chat-reco { opacity: 1; transform: none; transition: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -239,13 +350,11 @@
   <header class="fixed top-0 inset-x-0 z-50 nav-blur border-b hairline bg-ink-950/80">
     <nav class="max-w-6xl mx-auto h-[64px] px-5 sm:px-8 flex items-center justify-between" aria-label="Primary">
       <a href="#top" class="flex items-center gap-2 group">
-        <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
-          <path d="M8 22 L16 12 L24 22 M10 18 L22 18" stroke="#00875F" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img src="/xaki-logo-transparent.png" width="22" height="22" alt="" aria-hidden="true" />
         <span class="text-[17px] font-semibold tracking-tight text-ink-100">xaki</span>
       </a>
-      <a href="/signup" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full">
-        Start with Dr. Kai
+      <a href="/login" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full">
+        Get started free
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
     </nav>
@@ -263,96 +372,99 @@
           <div class="lg:col-span-7">
             <div class="reveal inline-flex items-center gap-2 text-xs mono text-ink-300 px-3 py-1 rounded-full card">
               <span class="w-1.5 h-1.5 rounded-full bg-accent-bright pulse-dot"></span>
-              <span>AI HEALTH SPECIALIST</span>
+              <span>KAI IS ONLINE AND READY TO HELP</span>
             </div>
 
-            <h1 class="reveal mt-6 text-[44px] leading-[1.05] sm:text-6xl sm:leading-[1.04] font-semibold tracking-tight text-ink-100">
-              Meet Dr. Kai.<br/>
-              <span class="text-ink-400">Your AI health specialist.</span>
+            <h1 class="reveal mt-6 text-[38px] leading-[1.05] sm:text-6xl sm:leading-[1.04] font-semibold tracking-tight text-ink-100">
+              Your biggest barrier to progress isn't your fitness routine. It's your gut.
             </h1>
 
             <p class="reveal mt-6 max-w-xl text-[17px] sm:text-lg text-ink-300 leading-relaxed">
-              Log your training, meals, digestion, sleep, and injuries. Dr. Kai connects the dots a functional medicine doctor would — if they could see your actual day.
+              Does managing your digestion feel like two steps forward, one step back? Kai finds the <strong>patterns</strong> across your exercise, what you eat and drink, bathroom trips, sleep, and mental strain — and tells you <strong>what to change</strong>.
             </p>
 
             <div class="reveal mt-8 flex flex-wrap items-center gap-3">
-              <a href="/signup" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-5 py-3 rounded-full">
-                Start with Dr. Kai
+              <a href="/login" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-5 py-3 rounded-full">
+                Get started free
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
               <a href="#demo" class="btn-ghost inline-flex items-center gap-2 text-sm font-medium px-5 py-3 rounded-full">
-                Try the demo
+                Try the interactive demo
               </a>
             </div>
 
-            <p class="reveal mt-6 text-xs mono text-ink-400">
-              Training · Nutrition · Digestion · Sleep · Mood · Pain · Injuries
-            </p>
           </div>
 
-          <!-- Insight card visual -->
+          <!-- JTBD carousel -->
           <div class="lg:col-span-5 reveal">
             <div class="relative">
               <div class="absolute -inset-8 bg-accent-bright/20 blur-3xl rounded-full pointer-events-none" aria-hidden="true"></div>
-              <article class="relative card rounded-2xl p-5 sm:p-6 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.18)]">
-                <header class="flex items-center justify-between text-xs mono text-ink-400">
-                  <div class="flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-full flex items-center justify-center" style="background: rgba(0,229,163,0.18); border: 1px solid rgba(0,135,95,0.4);">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#006F4D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                    </span>
-                    <span class="text-accent-deep">DR. KAI · INSIGHT</span>
-                  </div>
-                  <span>IMPACT · HIGH</span>
-                </header>
+              <div class="relative">
+                <div id="hero-carousel" class="carousel-track">
 
-                <h3 class="mt-4 text-[19px] leading-snug font-medium text-ink-100">
-                  Your digestion crashes 4 days after high training volume.
-                </h3>
+                  <!-- Card 1: Digestion -->
+                  <article class="carousel-card active card rounded-2xl p-5 sm:p-6 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.18)]" data-slide="0">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div class="flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: rgba(196,114,42,0.12);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c4722a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"/><path d="m2.5 21.5 1.4-1.4"/><path d="m20.1 3.9 1.4-1.4"/><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"/><path d="m9.6 14.4 4.8-4.8"/></svg></span>
+                        <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: rgba(26,158,110,0.12);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a9e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/><path d="m19 5-7 7"/></svg></span>
+                        <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: rgba(80,136,176,0.12);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5088b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+                      </div>
+                      <span class="text-[11px] mono text-ink-400">TRAINING · MEALS · DIGESTION</span>
+                    </div>
+                    <p class="text-xs mono text-ink-400">THE PATTERN KAI SPOTTED</p>
+                    <p class="mt-2 text-[15px] leading-relaxed text-ink-200">Over the last two months, your gut acts up after stretches of heavy exercise — and it's worst when those days come with fat-rich, low-fiber meals and short nights of sleep. It's not one thing. It's the pile-up.</p>
+                    <div class="mt-4 rounded-xl border hairline bg-ink-800 p-4">
+                      <p class="text-xs mono text-accent-deep">KAI SAYS</p>
+                      <p class="mt-2 text-sm text-ink-100 leading-relaxed">"On heavy exercise days, add fiber to your meals (veggies or a spoon of flaxseed), increase healthy carbs (rice, potatoes) and go lighter on fat-heavy foods (cheese, sausages, even nuts). Aim for 7+ hours of sleep, drink electrolytes, and slot a rest or mobility day between hard sessions."</p>
+                    </div>
+                  </article>
 
-                <p class="mt-3 text-sm text-ink-300 leading-relaxed">
-                  Last 6 weeks: every week with &gt;14 sets of legs was followed by a Bristol 6–7 day within 96 hours. Fiber dropped 28% on those weeks.
-                </p>
+                  <!-- Card 2: Nutrition -->
+                  <article class="carousel-card card rounded-2xl p-5 sm:p-6 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.18)]" data-slide="1">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div class="flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: rgba(26,158,110,0.12);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a9e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/><path d="m19 5-7 7"/></svg></span>
+                        <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: rgba(196,114,42,0.12);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c4722a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"/><path d="m2.5 21.5 1.4-1.4"/><path d="m20.1 3.9 1.4-1.4"/><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"/><path d="m9.6 14.4 4.8-4.8"/></svg></span>
+                        <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: rgba(80,136,176,0.08);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5088b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg></span>
+                      </div>
+                      <span class="text-[11px] mono text-ink-400">MEALS · TRAINING · SLEEP</span>
+                    </div>
+                    <p class="text-xs mono text-ink-400">THE PATTERN KAI SPOTTED</p>
+                    <p class="mt-2 text-[15px] leading-relaxed text-ink-200">On your exercise days, you're eating only about 2/3 the protein your body needs to recover. On those same weeks, your deep sleep dropped noticeably and you struggled with constipation — your body was under stress and couldn't recharge.</p>
+                    <div class="mt-4 rounded-xl border hairline bg-ink-800 p-4">
+                      <p class="text-xs mono text-accent-deep">KAI SAYS</p>
+                      <p class="mt-2 text-sm text-ink-100 leading-relaxed">"Pick a protein-rich snack and add it to your meal plan every single day, e.g. Greek yogurt with granola or a protein shake. Have it in the morning or afternoon, not late at night, so it fuels recovery without disrupting sleep."</p>
+                    </div>
+                  </article>
 
-                <!-- Mini chart -->
-                <div class="mt-5 rounded-xl border hairline bg-ink-800 p-4">
-                  <div class="flex items-center justify-between text-[11px] mono text-ink-400 mb-2">
-                    <span>VOLUME vs BRISTOL</span>
-                    <span>6W</span>
-                  </div>
-                  <svg viewBox="0 0 300 80" class="w-full h-16" aria-hidden="true">
-                    <defs>
-                      <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stop-color="#00E5A3" stop-opacity="0.4"/>
-                        <stop offset="100%" stop-color="#00E5A3" stop-opacity="0"/>
-                      </linearGradient>
-                    </defs>
-                    <path d="M0 60 L50 40 L100 48 L150 22 L200 30 L250 14 L300 26 L300 80 L0 80 Z" fill="url(#g1)"/>
-                    <path class="sparkline" d="M0 60 L50 40 L100 48 L150 22 L200 30 L250 14 L300 26" fill="none" stroke="#00875F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M0 50 L50 56 L100 52 L150 64 L200 60 L250 70 L300 62" fill="none" stroke="#a1a1aa" stroke-width="1.5" stroke-dasharray="3 3" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  <div class="flex items-center gap-4 text-[11px] mono text-ink-400 mt-2">
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-accent"></span>Training volume</span>
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-[2px] bg-ink-500"></span>Bristol (inverted)</span>
-                  </div>
+                  <!-- Card 3: Injuries -->
+                  <article class="carousel-card card rounded-2xl p-5 sm:p-6 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.18)]" data-slide="2">
+                    <div class="flex items-center gap-3 mb-4">
+                      <div class="flex items-center gap-2">
+                        <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: rgba(196,114,42,0.12);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c4722a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"/><path d="m2.5 21.5 1.4-1.4"/><path d="m20.1 3.9 1.4-1.4"/><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"/><path d="m9.6 14.4 4.8-4.8"/></svg></span>
+                        <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: rgba(196,85,51,0.12);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c45533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>
+                        <span class="w-7 h-7 rounded-full flex items-center justify-center" style="background: rgba(196,85,51,0.12);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c45533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M10 10.01h.01M10 14.01h.01M14 10.01h.01M14 14.01h.01M18 6v12M6 6v12"/></svg></span>
+                      </div>
+                      <span class="text-[11px] mono text-ink-400">TRAINING · PAIN · INJURIES</span>
+                    </div>
+                    <p class="text-xs mono text-ink-400">THE PATTERN KAI SPOTTED</p>
+                    <p class="mt-2 text-[15px] leading-relaxed text-ink-200">Knee pain (6/10) appeared in 3 of the last 4 sessions with deep squats. No pain with leg press or lunges.</p>
+                    <div class="mt-4 rounded-xl border hairline bg-ink-800 p-4">
+                      <p class="text-xs mono text-accent-deep">KAI SAYS</p>
+                      <p class="mt-2 text-sm text-ink-100 leading-relaxed">"Replace deep squats with leg press at knee-safe range. Keep loading legs — just avoid the aggravating movement."</p>
+                    </div>
+                  </article>
+
                 </div>
 
-                <div class="mt-5 rounded-xl border hairline bg-ink-800 p-4">
-                  <p class="text-xs mono text-ink-400">RECOMMENDATION · 1 OF 3</p>
-                  <p class="mt-2 text-sm text-ink-100 leading-relaxed">
-                    Add 10g fiber on leg days. Start with 1 cup of cooked lentils at dinner.
-                  </p>
-                  <div class="mt-3 flex flex-wrap items-center gap-2 text-[11px] mono">
-                    <span class="px-2 py-1 rounded-md text-accent-deep" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">EFFORT · LOW</span>
-                    <span class="px-2 py-1 rounded-md bg-ink-800 text-ink-300 border hairline">ETA · 4 DAYS</span>
-                  </div>
+                <!-- Carousel dots -->
+                <div class="flex items-center justify-center gap-2 mt-5">
+                  <button class="carousel-dot active" data-slide="0" aria-label="Digestion insight"></button>
+                  <button class="carousel-dot" data-slide="1" aria-label="Nutrition insight"></button>
+                  <button class="carousel-dot" data-slide="2" aria-label="Injury insight"></button>
                 </div>
-
-                <div class="mt-5 flex items-center gap-2">
-                  <button type="button" class="flex-1 text-xs mono px-3 py-2 rounded-md border hairline-strong bg-ink-800 text-ink-100 hover:bg-ink-700 transition-colors">HELPFUL</button>
-                  <button type="button" class="flex-1 text-xs mono px-3 py-2 rounded-md border hairline bg-ink-900 hover:bg-ink-800 text-ink-300 transition-colors">NOT FOR ME</button>
-                  <button type="button" class="flex-1 text-xs mono px-3 py-2 rounded-md border hairline bg-ink-900 hover:bg-ink-800 text-ink-300 transition-colors">ALREADY TRIED</button>
-                </div>
-              </article>
+              </div>
             </div>
           </div>
         </div>
@@ -361,237 +473,112 @@
       <div class="divider-grad"></div>
     </section>
 
-    <!-- ================= WHO DR. KAI IS ================= -->
-    <section class="relative py-24 sm:py-32">
-      <div class="max-w-5xl mx-auto px-5 sm:px-8">
-        <p class="reveal step-num">01 · THE SPECIALIST</p>
-        <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl text-ink-100">
-          One specialist. Every part of your body.
-        </h2>
-        <div class="reveal mt-8 grid md:grid-cols-2 gap-10 text-[17px] leading-relaxed text-ink-300 max-w-4xl">
-          <p>
-            Dr. Kai watches your training volume, your protein intake, your Bristol scores, your sleep, your injuries — at the same time. The patterns between them are where most problems start. And where most answers live.
-          </p>
-          <p>
-            A fat-heavy, low-fiber week shows up in your gut four days later. A volume spike on Monday shows up in your knee on Friday. Dr. Kai sees it coming.
-          </p>
-        </div>
-
-        <!-- Signal rows -->
-        <div class="reveal mt-16 rounded-2xl card overflow-hidden">
-          <div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-black/5">
-            <div class="p-6">
-              <p class="text-xs mono text-ink-400">PATTERN</p>
-              <p class="mt-3 text-[15px] leading-relaxed text-ink-200">High-fat, low-fiber week <span class="text-ink-400">→</span> <span class="text-accent-deep font-medium">Bristol 6 within 4 days</span></p>
-            </div>
-            <div class="p-6">
-              <p class="text-xs mono text-ink-400">PATTERN</p>
-              <p class="mt-3 text-[15px] leading-relaxed text-ink-200">Protein below 1.4 g/kg <span class="text-ink-400">→</span> <span class="text-accent-deep font-medium">Deep sleep drops 18%</span></p>
-            </div>
-            <div class="p-6">
-              <p class="text-xs mono text-ink-400">PATTERN</p>
-              <p class="mt-3 text-[15px] leading-relaxed text-ink-200">Skipped warm-up <span class="text-ink-400">→</span> <span class="text-accent-deep font-medium">Knee pain same session</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider-grad"></div>
-
-    <!-- ================= HOW IT WORKS ================= -->
-    <section id="how" class="relative py-24 sm:py-32">
-      <div class="max-w-5xl mx-auto px-5 sm:px-8">
-        <p class="reveal step-num">02 · HOW IT WORKS</p>
-        <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl text-ink-100">
-          You log. Dr. Kai learns.
-        </h2>
-
-        <ol class="mt-16 grid gap-6 sm:grid-cols-2">
-          <li class="reveal lift rounded-2xl card p-7">
-            <p class="step-num">STEP 01</p>
-            <h3 class="mt-4 text-xl font-semibold text-ink-100">Log what matters.</h3>
-            <p class="mt-3 text-[15px] text-ink-300 leading-relaxed">Workouts, meals, digestion, sleep, mood, pain, injuries. Or connect your wearables.</p>
-          </li>
-          <li class="reveal lift rounded-2xl card p-7">
-            <p class="step-num">STEP 02</p>
-            <h3 class="mt-4 text-xl font-semibold text-ink-100">Dr. Kai watches patterns.</h3>
-            <p class="mt-3 text-[15px] text-ink-300 leading-relaxed">Not just within one domain. Across all of them.</p>
-          </li>
-          <li class="reveal lift rounded-2xl card p-7">
-            <p class="step-num">STEP 03</p>
-            <h3 class="mt-4 text-xl font-semibold text-ink-100">Get ranked recommendations.</h3>
-            <p class="mt-3 text-[15px] text-ink-300 leading-relaxed">Grounded in your numbers. Ranked by impact and effort. Not generic tips.</p>
-          </li>
-          <li class="reveal lift rounded-2xl card p-7">
-            <p class="step-num">STEP 04</p>
-            <h3 class="mt-4 text-xl font-semibold text-ink-100">Rate and refine.</h3>
-            <p class="mt-3 text-[15px] text-ink-300 leading-relaxed">Helpful. Not for me. Already tried. Dr. Kai gets sharper over time.</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <div class="divider-grad"></div>
-
-    <!-- ================= TRY THE DEMO ================= -->
+    <!-- ================= DEMO + WHO IT'S FOR ================= -->
     <section id="demo" class="relative py-24 sm:py-32 overflow-hidden">
       <div class="absolute inset-0 accent-glow pointer-events-none" aria-hidden="true"></div>
       <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
-        <p class="reveal step-num">03 · TRY IT</p>
-        <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl text-ink-100">
-          See it for yourself.
-        </h2>
-        <p class="reveal mt-6 max-w-xl text-ink-300 text-[17px] leading-relaxed">
-          This is the real app with demo data. Tap around — log a workout, check your macros, read Dr. Kai's insights. Data resets on refresh.
-        </p>
+        <div class="grid lg:grid-cols-12 gap-14 lg:gap-16 items-start">
 
-        <!-- Desktop: interactive phone frame with iframe -->
-        <div class="reveal mt-14 hidden lg:flex justify-center">
-          <div class="phone-frame-live">
-            <iframe src="https://demo.xaki.app" title="Xaki interactive demo" loading="lazy" allow="clipboard-write"></iframe>
-          </div>
-        </div>
-
-        <!-- Mobile: CTA to open demo in new tab -->
-        <div class="reveal mt-10 lg:hidden">
-          <div class="rounded-2xl card p-7 text-center">
-            <p class="text-ink-300 text-[15px] leading-relaxed mb-5">The interactive demo works best on a larger screen. Tap below to try it on your phone.</p>
-            <a href="https://demo.xaki.app" target="_blank" rel="noopener" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5 rounded-full">
-              Open the demo
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider-grad"></div>
-
-    <!-- ================= WHAT YOU CAN TRACK ================= -->
-    <section class="relative py-24 sm:py-32">
-      <div class="max-w-6xl mx-auto px-5 sm:px-8">
-        <div class="grid lg:grid-cols-12 gap-14 lg:gap-16">
-          <div class="lg:col-span-5">
-            <p class="reveal step-num">04 · THE DATA</p>
-            <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-ink-100">
-              One heatmap. Your entire health history.
+          <!-- Demo column -->
+          <div class="lg:col-span-7">
+            <h2 class="reveal text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-ink-100">
+              See it for yourself.
             </h2>
-            <p class="reveal mt-6 text-ink-300 text-[17px] leading-relaxed max-w-md">
-              Every domain, every day. Dr. Kai reads across all of it.
-            </p>
+            <p class="reveal mt-4 text-ink-300 text-[17px] leading-relaxed">Interactive demo with simulated data.</p>
 
-            <!-- Heatmap mock -->
-            <div class="reveal mt-10 rounded-2xl card p-5">
-              <div class="flex items-center justify-between text-[11px] mono text-ink-400 mb-3">
-                <span>ACTIVITY · 26 WEEKS</span>
-                <span class="flex items-center gap-1.5">
-                  LESS
-                  <span class="hm-cell"></span>
-                  <span class="hm-cell hm-1"></span>
-                  <span class="hm-cell hm-2"></span>
-                  <span class="hm-cell hm-3"></span>
-                  <span class="hm-cell hm-4"></span>
-                  MORE
-                </span>
+            <div class="reveal mt-10 hidden lg:flex justify-center">
+              <div class="phone-frame-live">
+                <iframe src="https://demo.xaki.app" title="Xaki interactive demo" loading="lazy" allow="clipboard-write"></iframe>
               </div>
-              <div id="heatmap" class="grid grid-flow-col gap-[3px]" aria-hidden="true"></div>
+            </div>
+
+            <div class="reveal mt-10 lg:hidden">
+              <div class="rounded-2xl card p-7 text-center">
+                <p class="text-ink-300 text-[15px] leading-relaxed mb-5">The interactive demo works best on a larger screen. Tap below to try it on your phone.</p>
+                <a href="https://demo.xaki.app" target="_blank" rel="noopener" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5 rounded-full">
+                  Open the demo
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                </a>
+              </div>
             </div>
           </div>
 
-          <div class="lg:col-span-7">
-            <ul class="reveal grid grid-cols-2 sm:grid-cols-3 gap-[1px] bg-ink-700 rounded-2xl overflow-hidden border hairline">
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">TRAIN</span><p class="mt-2 text-[15px] text-ink-100">Workouts</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">TRAIN</span><p class="mt-2 text-[15px] text-ink-100">Weekly volume</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">TRAIN</span><p class="mt-2 text-[15px] text-ink-100">Muscle balance</p></li>
-
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">FUEL</span><p class="mt-2 text-[15px] text-ink-100">Meals</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">FUEL</span><p class="mt-2 text-[15px] text-ink-100">Macros</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">FUEL</span><p class="mt-2 text-[15px] text-ink-100">Calorie targets</p></li>
-
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">GUT</span><p class="mt-2 text-[15px] text-ink-100">Digestion</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">GUT</span><p class="mt-2 text-[15px] text-ink-100">Bristol scale</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">GUT</span><p class="mt-2 text-[15px] text-ink-100">Evacuation</p></li>
-
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">REST</span><p class="mt-2 text-[15px] text-ink-100">Sleep</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">REST</span><p class="mt-2 text-[15px] text-ink-100">Resting HR</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">REST</span><p class="mt-2 text-[15px] text-ink-100">Steps</p></li>
-
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">BODY</span><p class="mt-2 text-[15px] text-ink-100">Mood</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">BODY</span><p class="mt-2 text-[15px] text-ink-100">Pain events</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">BODY</span><p class="mt-2 text-[15px] text-ink-100">Active injuries</p></li>
-
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">VITAL</span><p class="mt-2 text-[15px] text-ink-100">Hydration</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">VITAL</span><p class="mt-2 text-[15px] text-ink-100">Weight</p></li>
-              <li class="bg-ink-900 p-5"><span class="text-xs mono text-ink-400">VITAL</span><p class="mt-2 text-[15px] text-ink-100">Vitals</p></li>
-            </ul>
+          <!-- Who it's for column -->
+          <div class="lg:col-span-5 lg:pt-16">
+            <p class="reveal step-num">WHO IT'S FOR</p>
+            <h3 class="reveal mt-4 text-2xl sm:text-3xl font-semibold tracking-tight leading-[1.1] text-ink-100">
+              Built for people who've stopped trusting their gut.
+            </h3>
+            <div class="reveal mt-8 space-y-4 text-[16px] text-ink-200 leading-relaxed">
+              <p>If you've tracked every meal for months and still can't find the trigger to your digestive problems.</p>
+              <p>If you're serious about your fitness but can't eat enough to fuel your progress.</p>
+              <p>If you're managing an injury and your digestion at the same time.</p>
+              <p>If you've used MyFitnessPal, Whoop, Oura, Cara — and still felt like something was missing.</p>
+              <p class="text-accent-deep font-medium">Kai sees what they can't. Because Kai sees all of it at once.</p>
+            </div>
           </div>
+
         </div>
       </div>
     </section>
 
     <div class="divider-grad"></div>
 
-    <!-- ================= WHO THIS IS FOR ================= -->
-    <section class="relative py-24 sm:py-32">
-      <div class="max-w-4xl mx-auto px-5 sm:px-8">
-        <p class="reveal step-num">05 · WHO IT'S FOR</p>
-        <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-ink-100">
-          Built for people paying attention.
-        </h2>
-        <div class="reveal mt-10 space-y-5 text-[17px] sm:text-lg text-ink-200 leading-relaxed">
-          <p>If you train hard and can't figure out why recovery feels off.</p>
-          <p>If your gut has its own calendar and you've stopped trusting what's "normal."</p>
-          <p>If you're managing an injury without a full-time physio.</p>
-          <p>If you've used MyFitnessPal, Whoop, Oura, and still felt like something was missing.</p>
-          <p class="text-accent-deep font-medium">Dr. Kai is for you.</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="divider-grad"></div>
-
-    <!-- ================= WHY IT EXISTS ================= -->
-    <section class="relative py-24 sm:py-32">
-      <div class="max-w-5xl mx-auto px-5 sm:px-8">
-        <p class="reveal step-num">06 · WHY IT EXISTS</p>
-        <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl text-ink-100">
-          Most health apps weren't built to think.
-        </h2>
-
-        <div class="reveal mt-10 grid md:grid-cols-2 gap-10 text-[17px] leading-relaxed">
-          <div class="text-ink-400 space-y-5">
-            <p>They count steps.</p>
-            <p>They log macros.</p>
-            <p>They score your sleep.</p>
-            <p>They show you dashboards.</p>
-          </div>
-          <div class="text-ink-200 space-y-5">
-            <p>None of them notice that your digestion always crashes the week after a training spike.</p>
-            <p>Or that your sleep drops when your protein does.</p>
-            <p>Or that your knee pain correlates with the days you skip warm-ups.</p>
-          </div>
-        </div>
-
-        <p class="reveal mt-16 text-2xl sm:text-3xl font-medium tracking-tight text-ink-100 max-w-2xl">
-          The patterns are in your data. <span class="text-accent-deep">Dr. Kai reads them.</span>
-        </p>
-      </div>
-    </section>
-
-    <div class="divider-grad"></div>
-
-    <!-- ================= INJURIES ================= -->
+    <!-- ================= JTBD 1: DIGESTION ================= -->
     <section class="relative py-24 sm:py-32">
       <div class="max-w-6xl mx-auto px-5 sm:px-8">
         <div class="grid lg:grid-cols-12 gap-14 items-center">
           <div class="lg:col-span-6">
-            <p class="reveal step-num">07 · INJURIES</p>
+            <h2 class="reveal text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-ink-100">
+              Your gut is standing between you and your goals.
+            </h2>
+            <p class="reveal mt-6 text-[17px] leading-relaxed text-ink-300">
+              You're doing everything right — exercising, eating clean, staying hydrated. But your digestion has its own schedule and nothing sticks because you can't see the pattern.
+            </p>
+            <p class="reveal mt-4 text-[17px] leading-relaxed text-ink-300">
+              Kai tracks what you eat and drink, how you exercise, how you sleep, and how your gut responds. When it crashes a few days after a heavy week, Kai sees the connection and tells you what to change.
+            </p>
+          </div>
+          <div class="lg:col-span-6 reveal flex justify-center">
+            <img src="/site/illustrations/digestion.png" alt="" class="w-full max-w-[380px] rounded-2xl" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-grad"></div>
+
+    <!-- ================= JTBD 2: NUTRITION ================= -->
+    <section class="relative py-24 sm:py-32">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="grid lg:grid-cols-12 gap-14 items-center">
+          <div class="lg:col-span-6 lg:order-2">
+            <h2 class="reveal text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-ink-100">
+              Your eating patterns aren't supporting your fitness goals.
+            </h2>
+            <p class="reveal mt-6 text-[17px] leading-relaxed text-ink-300">
+              You know protein and calories matter. But hitting the right numbers day after day is where it falls apart — and it's costing you results. Kai makes it easy to log food with voice notes, Apple Watch and Siri, then calculates your macros, spots the gaps, and tells you what to change — tied to your actual exercise, nutrition and goals. Building muscle, losing weight, or improving endurance.
+            </p>
+          </div>
+          <div class="lg:col-span-6 lg:order-1 reveal flex justify-center">
+            <img src="/site/illustrations/nutrition.png" alt="" class="w-full max-w-[380px] rounded-2xl" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-grad"></div>
+
+    <!-- ================= JTBD 3: INJURIES ================= -->
+    <section class="relative py-24 sm:py-32">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="grid lg:grid-cols-12 gap-14 items-center">
+          <div class="lg:col-span-6">
             <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-ink-100">
-              Injured? Dr. Kai adjusts.
+              Injuries can make it harder to hit your goals, but they don't make it impossible.
             </h2>
             <p class="reveal mt-6 text-ink-300 text-[17px] leading-relaxed max-w-lg">
-              Log an injury once. Every recommendation after that accounts for it. Meniscus issue? Dr. Kai suggests knee-safe alternatives. AC joint? Shoulder-safe movements. No more guessing which exercises to skip.
+              Log an injury once. Every recommendation Kai makes accounts for it.
             </p>
           </div>
 
@@ -603,19 +590,19 @@
               </div>
 
               <ul class="divide-y divide-black/5">
-                <li class="py-4 flex items-center justify-between gap-4">
+                <li class="py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
                   <div>
                     <p class="text-[15px] text-ink-100">Right knee · meniscus tear</p>
                     <p class="text-xs text-ink-400 mt-1">Logged 2026-01-12 · rehabilitating</p>
                   </div>
-                  <span class="text-[11px] mono px-2 py-1 rounded-md text-accent-deep whitespace-nowrap" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">AVOID: DEEP SQUAT</span>
+                  <span class="text-[11px] mono px-2 py-1 rounded-md text-accent-deep whitespace-nowrap self-start" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">AVOID: DEEP SQUAT</span>
                 </li>
-                <li class="py-4 flex items-center justify-between gap-4">
+                <li class="py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
                   <div>
                     <p class="text-[15px] text-ink-100">Left AC joint · grade 2 separation</p>
                     <p class="text-xs text-ink-400 mt-1">Logged 2025-11-03 · managed</p>
                   </div>
-                  <span class="text-[11px] mono px-2 py-1 rounded-md text-accent-deep whitespace-nowrap" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">AVOID: OVERHEAD PRESS</span>
+                  <span class="text-[11px] mono px-2 py-1 rounded-md text-accent-deep whitespace-nowrap self-start" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">AVOID: OVERHEAD PRESS</span>
                 </li>
               </ul>
 
@@ -630,42 +617,371 @@
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
     <div class="divider-grad"></div>
 
-    <!-- ================= PRIVACY ================= -->
-    <section class="relative py-24 sm:py-32">
-      <div class="max-w-4xl mx-auto px-5 sm:px-8">
-        <p class="reveal step-num">08 · PRIVACY</p>
-        <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-ink-100">
-          Your data stays yours.
+    <!-- ================= HOW IT WORKS ================= -->
+    <section id="how-it-works" class="relative py-24 sm:py-32">
+      <div class="max-w-5xl mx-auto px-5 sm:px-8">
+        <p class="reveal step-num">HOW IT WORKS</p>
+        <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl text-ink-100">
+          You log. Kai connects the dots.
         </h2>
-        <p class="reveal mt-6 text-ink-300 text-[17px] leading-relaxed max-w-xl">
-          Tied to your profile. Not shared. Not sold.
-        </p>
-        <p class="reveal mt-6">
-          <a href="/privacy" class="text-accent-deep hover:text-ink-100 transition-colors text-sm mono inline-flex items-center gap-2">
-            READ THE FULL PRIVACY POLICY
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </a>
-        </p>
+
+        <div class="reveal mt-14 grid md:grid-cols-3 gap-8">
+          <div class="card rounded-2xl p-6">
+            <span class="step-num">01</span>
+            <h3 class="mt-3 text-lg font-semibold text-ink-100">Tell Kai your goals and start logging.</h3>
+            <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">Kai asks what you want to work on and tailors everything to you:</p>
+            <ul class="mt-2 text-[15px] text-ink-300 leading-relaxed list-disc pl-5 space-y-1">
+              <li>Fix your digestion</li>
+              <li>Lose weight</li>
+              <li>Build muscle</li>
+              <li>Work around an injury</li>
+              <li>Improve sleep and recovery</li>
+            </ul>
+            <p class="mt-3 text-[15px] text-ink-300 leading-relaxed">Log exercise, what you eat and drink, bathroom trips, sleep, stress. Use natural language — Kai handles the parsing. Start with one thing and add more over time.</p>
+            <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">Already tracking elsewhere? Import from <strong>Apple Health</strong>, <strong>Garmin</strong>, and more integrations coming soon.</p>
+          </div>
+          <div class="card rounded-2xl p-6">
+            <span class="step-num">02</span>
+            <h3 class="mt-3 text-lg font-semibold text-ink-100">Patterns surface that you wouldn't spot on your own.</h3>
+            <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">Your gut doesn't flare from one thing. It flares from <strong>combinations</strong> — and often <strong>days later</strong>. Kai finds the connections you can't see in a food diary.</p>
+          </div>
+          <div class="card rounded-2xl p-6">
+            <span class="step-num">03</span>
+            <h3 class="mt-3 text-lg font-semibold text-ink-100">You get personalized recommendations, not metrics.</h3>
+            <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">Not generic tips. Not scores. Not metrics for the sake of metrics. <strong>Specific changes</strong> based on your data, <strong>ranked by impact</strong>. Helpful. Not for me. Already tried. Kai gets sharper.</p>
+          </div>
+        </div>
+
+        <div class="reveal mt-14 flex justify-center">
+          <div class="chat-phone" id="chat-demo">
+            <div class="chat-screen">
+              <p class="chat-label chat-label-right">YOU</p>
+              <div class="chat-bubble chat-user" data-delay="0">I want to build muscle but my digestion keeps derailing me</div>
+
+              <p class="chat-label chat-label-left">KAI</p>
+              <div class="chat-bubble chat-kai" data-delay="600">Got it. Let's track your training, meals, and gut together — I'll look for what's connected.</div>
+
+              <p class="chat-label chat-label-right" style="margin-top: 6px;">YOU</p>
+              <div class="chat-voice" data-delay="1400">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+                <div class="chat-waveform">
+                  <span style="height:5px"></span><span style="height:10px"></span><span style="height:14px"></span><span style="height:8px"></span><span style="height:12px"></span><span style="height:6px"></span><span style="height:11px"></span><span style="height:15px"></span><span style="height:7px"></span><span style="height:10px"></span><span style="height:4px"></span><span style="height:9px"></span><span style="height:13px"></span><span style="height:6px"></span><span style="height:8px"></span>
+                </div>
+                <span style="font-size:11px; opacity:0.7;">0:04</span>
+              </div>
+              <div class="chat-bubble chat-kai" data-delay="2000" style="font-size:12px; color:#71717a;">Logged: Leg day — squats, leg press, lunges. 18 sets total.</div>
+
+              <p class="chat-label chat-label-left" style="margin-top: 6px;">KAI</p>
+              <div class="chat-reco" data-delay="2800">
+                <p class="chat-reco-title">RECOMMENDATIONS</p>
+                <div class="chat-reco-item"><span class="chat-reco-num">1.</span> Add 10g fiber on heavy leg days — lentils at dinner</div>
+                <div class="chat-reco-item"><span class="chat-reco-num">2.</span> Post-workout meal with 30g protein before 6pm</div>
+                <div class="chat-reco-item"><span class="chat-reco-num">3.</span> Track digestion for 4 days — I'll check the pattern</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <div class="divider-grad"></div>
 
-    <!-- ================= WHAT DR. KAI ISN'T ================= -->
+    <!-- ================= FEATURES ================= -->
     <section class="relative py-24 sm:py-32">
-      <div class="max-w-4xl mx-auto px-5 sm:px-8">
-        <p class="reveal step-num">09 · WHAT DR. KAI ISN'T</p>
-        <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] text-ink-100">
-          A real doctor.
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <h2 class="reveal text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] max-w-3xl text-ink-100">
+          What's inside.
         </h2>
-        <p class="reveal mt-6 text-ink-300 text-[17px] leading-relaxed max-w-2xl">
-          Dr. Kai is an intelligence layer on top of your data — not a medical device, not a medical service. The insights are informational. For anything clinical, see an actual doctor.
-        </p>
+
+        <!-- Feature 1: Dashboard — screenshot right -->
+        <div class="reveal mt-20 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div class="lg:col-span-6">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#006F4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              </span>
+              <p class="step-num">HOME</p>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-ink-100">Everything you track. One place. Every day.</h3>
+            <p class="mt-4 text-[17px] text-ink-300 leading-relaxed">
+              Training, nutrition, digestion, sleep, hydration, pain — Kai's insight cards tell you what changed, what's trending, and what to do next.
+            </p>
+          </div>
+          <div class="lg:col-span-6 flex justify-center">
+            <div class="phone-frame">
+              <img src="/site/screens/home.png" alt="Xaki dashboard showing activity heatmap, quick actions, and health cards" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2: Training — screenshot left -->
+        <div class="reveal mt-24 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div class="lg:col-span-6 lg:order-2">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c4722a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"/><path d="m2.5 21.5 1.4-1.4"/><path d="m20.1 3.9 1.4-1.4"/><path d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"/><path d="m9.6 14.4 4.8-4.8"/></svg>
+              </span>
+              <p class="step-num">TRAINING</p>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-ink-100">Your sets and reps. Kai works around your injuries and pushes you forward.</h3>
+            <p class="mt-4 text-[17px] text-ink-300 leading-relaxed">
+              Build programs, track volume by muscle group, and see your progression over time. Kai adjusts recommendations around your active injuries and tells you when it's time to increase the challenge.
+            </p>
+          </div>
+          <div class="lg:col-span-6 lg:order-1 flex justify-center">
+            <div class="phone-frame">
+              <img src="/site/screens/workouts.png" alt="Xaki workout history showing exercises, sets, and weights" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3: Nutrition — screenshot right -->
+        <div class="reveal mt-24 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div class="lg:col-span-6">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a9e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/><path d="m19 5-7 7"/></svg>
+              </span>
+              <p class="step-num">NUTRITION</p>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-ink-100">Tell Kai what you ate. Get back what needs to change.</h3>
+            <p class="mt-4 text-[17px] text-ink-300 leading-relaxed">
+              Type "chicken stir fry with rice" — Kai figures out the macros, compares them against your goals, and tells you where you're falling short. Build meal plans, set targets, and let Kai flag the gaps before they cost you progress.
+            </p>
+          </div>
+          <div class="lg:col-span-6 flex justify-center">
+            <div class="phone-frame">
+              <img src="/site/screens/meal-plan.png" alt="Xaki meal plan screen showing daily macro goals and meal entries" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 4: Digestion — no screenshot, card visual -->
+        <div class="reveal mt-24 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div class="lg:col-span-6 lg:order-2">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5088b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
+              </span>
+              <p class="step-num">DIGESTION</p>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-ink-100">Track your gut. See what's actually causing the issues.</h3>
+            <p class="mt-4 text-[17px] text-ink-300 leading-relaxed">
+              Log stool type, comfort, and regularity. Kai correlates your digestion with what you ate and how you trained — so you stop guessing and start making changes that work.
+            </p>
+          </div>
+          <div class="lg:col-span-6 lg:order-1 flex justify-center">
+            <div class="rounded-2xl card p-6 w-full max-w-[280px] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.12)]">
+              <p class="text-xs mono text-ink-400">TODAY · DIGESTION</p>
+              <div class="mt-4 space-y-3">
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Stool type</span><span class="text-[14px] text-ink-100 font-medium">Type 4</span></div>
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Comfort</span><span class="text-[14px] text-ink-100 font-medium">Fine</span></div>
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Relief</span><span class="text-[14px] text-ink-100 font-medium">Feeling light</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t hairline">
+                <p class="text-xs mono text-accent-deep">KAI SAYS</p>
+                <p class="mt-2 text-[13px] text-ink-300 leading-relaxed">"Third day in a row at Type 4 — the fiber increase is working."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 5: Alcohol — card visual -->
+        <div class="reveal mt-24 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div class="lg:col-span-6">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a05ab0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M7 10h10"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"/></svg>
+              </span>
+              <p class="step-num">ALCOHOL</p>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-ink-100">Track drinks. See the real cost on your recovery.</h3>
+            <p class="mt-4 text-[17px] text-ink-300 leading-relaxed">
+              Log what you drink. Kai tracks standard drinks and calories, and shows you how alcohol affects your sleep, digestion, and training performance over time.
+            </p>
+          </div>
+          <div class="lg:col-span-6 flex justify-center">
+            <div class="rounded-2xl card p-6 w-full max-w-[280px] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.12)]">
+              <p class="text-xs mono text-ink-400">THIS WEEK · ALCOHOL</p>
+              <div class="mt-4 space-y-3">
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Standard drinks</span><span class="text-[14px] text-ink-100 font-medium">6</span></div>
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Added calories</span><span class="text-[14px] text-ink-100 font-medium">840 kcal</span></div>
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Days with drinks</span><span class="text-[14px] text-ink-100 font-medium">3 of 7</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t hairline">
+                <p class="text-xs mono text-accent-deep">KAI SAYS</p>
+                <p class="mt-2 text-[13px] text-ink-300 leading-relaxed">"Deep sleep dropped 22% on nights after 2+ drinks."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 6: Hydration — card visual -->
+        <div class="reveal mt-24 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div class="lg:col-span-6 lg:order-2">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5a96b5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/></svg>
+              </span>
+              <p class="step-num">HYDRATION</p>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-ink-100">Hit your water target. Kai watches the trends.</h3>
+            <p class="mt-4 text-[17px] text-ink-300 leading-relaxed">
+              Set a daily water goal and log glasses throughout the day. Kai flags when hydration dips below target and correlates it with your digestion and energy levels.
+            </p>
+          </div>
+          <div class="lg:col-span-6 lg:order-1 flex justify-center">
+            <div class="rounded-2xl card p-6 w-full max-w-[280px] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.12)]">
+              <p class="text-xs mono text-ink-400">TODAY · HYDRATION</p>
+              <div class="mt-4 space-y-3">
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Water</span><span class="text-[14px] text-ink-100 font-medium">1,750 ml</span></div>
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Target</span><span class="text-[14px] text-ink-100 font-medium">2,500 ml</span></div>
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Progress</span><span class="text-[14px] text-accent font-medium">70%</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t hairline">
+                <p class="text-xs mono text-accent-deep">KAI SAYS</p>
+                <p class="mt-2 text-[13px] text-ink-300 leading-relaxed">"You've been under target 3 days in a row — your digestion tends to slow when that happens."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 7: Pain & injuries — screenshot right -->
+        <div class="reveal mt-24 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div class="lg:col-span-6">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c45533" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+              </span>
+              <p class="step-num">PAIN &amp; INJURIES</p>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-ink-100">Track what hurts. Kai tells you what's causing it.</h3>
+            <p class="mt-4 text-[17px] text-ink-300 leading-relaxed">
+              Log pain by location, type, and severity. Kai correlates your pain events with your training — so instead of guessing which exercises are making things worse, you know.
+            </p>
+          </div>
+          <div class="lg:col-span-6 flex justify-center">
+            <div class="phone-frame">
+              <img src="/site/screens/health.png" alt="Xaki health screen showing pain logging with body location and severity" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 8: Blood work — card visual -->
+        <div class="reveal mt-24 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div class="lg:col-span-6 lg:order-2">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: rgba(0,229,163,0.12); border: 1px solid rgba(0,135,95,0.3);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a8a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg>
+              </span>
+              <p class="step-num">BLOOD WORK</p>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight text-ink-100">Upload your results. Kai reads them alongside everything else.</h3>
+            <p class="mt-4 text-[17px] text-ink-300 leading-relaxed">
+              Upload blood test results and Kai factors them into your health picture. Iron low? Kai connects it to your energy and training performance. Vitamin D dropping? Kai flags it alongside your sleep trends.
+            </p>
+          </div>
+          <div class="lg:col-span-6 lg:order-1 flex justify-center">
+            <div class="rounded-2xl card p-6 w-full max-w-[280px] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.12)]">
+              <p class="text-xs mono text-ink-400">LATEST · BLOOD WORK</p>
+              <div class="mt-4 space-y-3">
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Hemoglobin</span><span class="text-[14px] text-ink-100 font-medium">14.2 g/dL</span></div>
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Vitamin D</span><span class="text-[14px] text-ink-100 font-medium">28 ng/mL</span></div>
+                <div class="flex items-center justify-between"><span class="text-[14px] text-ink-200">Iron</span><span class="text-[14px] text-ink-100 font-medium">65 μg/dL</span></div>
+              </div>
+              <div class="mt-4 pt-4 border-t hairline">
+                <p class="text-xs mono text-accent-deep">KAI SAYS</p>
+                <p class="mt-2 text-[13px] text-ink-300 leading-relaxed">"Vitamin D is borderline low — correlates with the sleep quality dip over the last month."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-grad"></div>
+
+    <!-- ================= WHY IT EXISTS ================= -->
+    <section class="relative py-24 sm:py-32">
+      <div class="max-w-5xl mx-auto px-5 sm:px-8">
+        <p class="reveal step-num">WHY IT EXISTS</p>
+        <h2 class="reveal mt-4 text-3xl sm:text-5xl font-semibold tracking-tight leading-[1.1] max-w-3xl text-ink-100">
+          Most apps don't get the full picture. We do.
+        </h2>
+
+        <div class="reveal mt-10 grid md:grid-cols-2 gap-10 text-[17px] leading-relaxed">
+          <div class="text-ink-400 space-y-5">
+            <p>They count steps.</p>
+            <p>They log macros.</p>
+            <p>They score your sleep.</p>
+            <p>They track what you eat.</p>
+            <p>They show you dashboards and numbers.</p>
+          </div>
+          <div class="text-ink-200 space-y-5">
+            <p>Kai watches everything, at the same time, over weeks.</p>
+          </div>
+        </div>
+
+        <div class="reveal mt-16 max-w-2xl">
+          <p class="text-[17px] leading-relaxed text-ink-300">
+            I'm JP. For years I lived the problem: persistent digestive issues, bloating, constipation, brain fog. It derailed my training and made it hard to show up as myself in the rest of my life.
+          </p>
+          <p class="mt-4 text-[17px] leading-relaxed text-ink-300">
+            Two injuries kept compounding things — a meniscus tear that killed any chance of flowing through a cardio session, and an AC joint tear that made upper body work a constant negotiation.
+          </p>
+          <p class="mt-4 text-[17px] leading-relaxed text-ink-300">
+            I tried everything. Endless gut tests, doctor visits, nutritionist consults, half a dozen apps but no real answers.
+          </p>
+          <p class="mt-4 text-[17px] leading-relaxed text-ink-300">
+            Then three things changed: Greg at Be Empowered taught me progressive overload and why tracking actually matters. Dr. Luigi Vilchis helped me clear out layers of parasitic, dysbiotic, and fungal stuff in my gut. And I started using AI to find correlations across domains — physical stress, mental stress, nutrition, and how all of it hit my gut and recovery.
+          </p>
+          <p class="mt-4 text-[17px] leading-relaxed text-ink-300">
+            That last part was the breakthrough. But it also broke my brain. Too many levers — sleep, training volume/intensity, fiber, hydration, protein levels, work stress, FODMAPs, intestinal imbalances, meal timing, recovery days, deload weeks, etc — and no way to keep it all in my head.
+          </p>
+          <p class="mt-4 text-[17px] leading-relaxed text-ink-300">
+            What I needed didn't exist. Something I could talk to, share my medical history with, log my daily habits in — and have it remind me of patterns I'd already learned but kept forgetting, plus surface new ones I hadn't seen yet.
+          </p>
+          <p class="mt-4 text-[17px] leading-relaxed text-ink-300">
+            So I built it. It's called Xaki. The AI coach is Kai.
+          </p>
+          <p class="mt-4 text-sm text-ink-400">— JP, founder</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-grad"></div>
+
+    <!-- ================= PRIVACY + DISCLAIMER ================= -->
+    <section class="relative py-24 sm:py-32">
+      <div class="max-w-5xl mx-auto px-5 sm:px-8">
+        <div class="grid md:grid-cols-2 gap-16">
+          <div class="reveal">
+            <p class="step-num">PRIVACY</p>
+            <h3 class="mt-4 text-2xl sm:text-3xl font-semibold tracking-tight text-ink-100">Your data stays yours.</h3>
+            <p class="mt-4 text-[17px] text-ink-300 leading-relaxed">
+              Your health data stays on your profile. Not shared. Not sold. Not used to train models.
+            </p>
+            <p class="mt-4">
+              <a href="/privacy" class="text-accent-deep hover:text-ink-100 transition-colors text-sm mono inline-flex items-center gap-2">
+                READ THE FULL PRIVACY POLICY
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+            </p>
+          </div>
+          <div class="reveal">
+            <p class="step-num">DISCLAIMER</p>
+            <h3 class="mt-4 text-2xl sm:text-3xl font-semibold tracking-tight text-ink-100">Kai is not a medical professional.</h3>
+            <p class="mt-4 text-[17px] text-ink-300 leading-relaxed">
+              Xaki is designed for general wellness and informational purposes only. It should not be used to diagnose, treat, cure, monitor, or prevent any medical condition. Always consult a qualified healthcare provider for medical concerns.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -674,20 +990,21 @@
       <div class="absolute inset-0 accent-glow pointer-events-none" aria-hidden="true"></div>
       <div class="relative max-w-4xl mx-auto px-5 sm:px-8 py-32 sm:py-40 text-center">
         <h2 class="reveal text-5xl sm:text-7xl font-semibold tracking-tight leading-[1.0] text-ink-100">
-          Stop guessing.
+          Finally, an assistant who knows your full wellness history and digestive issues and is right there with you.
         </h2>
         <p class="reveal mt-6 text-ink-300 text-[17px] sm:text-lg max-w-xl mx-auto">
-          The patterns are in your data. Dr. Kai reads them.
+          Your gut isn't random — it's a pattern you haven't tracked yet. The answer isn't another food you cut. It's seeing how everything fits together.
         </p>
         <div class="reveal mt-10 flex flex-wrap items-center justify-center gap-3">
-          <a href="/signup" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5 rounded-full">
-            Start with Dr. Kai
+          <a href="/login" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5 rounded-full">
+            Get started free
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
-          <a href="/faq" class="btn-ghost inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5 rounded-full">
-            Read the FAQ
+          <a href="mailto:hello@xaki.app" class="btn-ghost inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5 rounded-full">
+            Get in touch
           </a>
         </div>
+        <p class="reveal mt-6 text-xs mono text-ink-400">COMING SOON — READY IN A FEW DAYS</p>
       </div>
     </section>
   </main>
@@ -697,21 +1014,18 @@
     <div class="max-w-6xl mx-auto px-5 sm:px-8 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
       <div>
         <div class="flex items-center gap-2">
-          <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
-            <path d="M8 22 L16 12 L24 22 M10 18 L22 18" stroke="#00875F" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img src="/xaki-logo-transparent.png" width="22" height="22" alt="" aria-hidden="true" />
           <span class="text-[17px] font-semibold tracking-tight text-ink-100">xaki</span>
         </div>
-        <p class="mt-4 text-sm text-ink-400 max-w-[28ch] leading-relaxed">Your AI health specialist. The patterns are in your data.</p>
+        <p class="mt-4 text-sm text-ink-400 max-w-[28ch] leading-relaxed">Your AI wellness coach. Better decisions from better data.</p>
       </div>
 
       <div>
         <p class="text-xs mono text-ink-400">PRODUCT</p>
         <ul class="mt-4 space-y-3 text-sm">
           <li><a href="#demo" class="text-ink-200 hover:text-accent-deep transition-colors">Try the demo</a></li>
-          <li><a href="/faq" class="text-ink-200 hover:text-accent-deep transition-colors">FAQ</a></li>
-          <li><a href="#how" class="text-ink-200 hover:text-accent-deep transition-colors">How it works</a></li>
-          <li><a href="/signup" class="text-ink-200 hover:text-accent-deep transition-colors">Start with Dr. Kai</a></li>
+          <li><a href="#how-it-works" class="text-ink-200 hover:text-accent-deep transition-colors">How it works</a></li>
+          <li><a href="/login" class="text-ink-200 hover:text-accent-deep transition-colors">Get started free</a></li>
         </ul>
       </div>
 
@@ -733,14 +1047,13 @@
 
     <div class="border-t hairline">
       <div class="max-w-6xl mx-auto px-5 sm:px-8 py-6 flex flex-wrap items-center justify-between gap-4 text-xs mono text-ink-400">
-        <span>© <span id="year"></span> Xaki Health</span>
-        <span>Not a medical device. Insights are informational.</span>
+        <span>&copy; <span id="year"></span> Xaki Health</span>
+        <span>Not a medical device. For general wellness and informational purposes only.</span>
       </div>
     </div>
   </footer>
 
   <script>
-    // Reveal on scroll
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) {
         if (e.isIntersecting) {
@@ -751,35 +1064,52 @@
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Synthetic heatmap (26 weeks x 7 days)
-    (function buildHeatmap() {
-      const el = document.getElementById('heatmap');
-      if (!el) return;
-      const weeks = 26;
-      const days = 7;
-      for (let w = 0; w < weeks; w++) {
-        const col = document.createElement('div');
-        col.className = 'grid gap-[3px]';
-        col.style.gridTemplateRows = `repeat(${days}, 10px)`;
-        for (let d = 0; d < days; d++) {
-          const cell = document.createElement('div');
-          const seed = Math.sin((w * 31 + d * 7) * 1.13) * 43758.5453;
-          const r = seed - Math.floor(seed);
-          const bias = w / weeks;
-          const v = r * 0.55 + bias * 0.6;
-          let cls = 'hm-cell';
-          if (v > 0.85) cls += ' hm-4';
-          else if (v > 0.65) cls += ' hm-3';
-          else if (v > 0.45) cls += ' hm-2';
-          else if (v > 0.28) cls += ' hm-1';
-          cell.className = cls;
-          col.appendChild(cell);
+    // Chat conversation staggered animation
+    (function initChat() {
+      const chat = document.getElementById('chat-demo');
+      if (!chat) return;
+      const bubbles = chat.querySelectorAll('[data-delay]');
+      let animated = false;
+
+      const chatObserver = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && !animated) {
+            animated = true;
+            bubbles.forEach(b => {
+              const delay = parseInt(b.dataset.delay, 10);
+              setTimeout(() => b.classList.add('visible'), delay);
+            });
+            chatObserver.unobserve(e.target);
+          }
         }
-        el.appendChild(col);
+      }, { threshold: 0.3 });
+      chatObserver.observe(chat);
+    })();
+
+    // Hero carousel auto-rotate
+    (function initCarousel() {
+      const cards = document.querySelectorAll('#hero-carousel .carousel-card');
+      const dots = document.querySelectorAll('.carousel-dot');
+      if (!cards.length) return;
+      let current = 0;
+      let timer;
+
+      function show(idx) {
+        cards.forEach(c => c.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        cards[idx].classList.add('active');
+        dots[idx].classList.add('active');
+        current = idx;
       }
+
+      function next() { show((current + 1) % cards.length); }
+      function start() { timer = setInterval(next, 5000); }
+      function reset() { clearInterval(timer); start(); }
+
+      dots.forEach(d => d.addEventListener('click', () => { show(+d.dataset.slide); reset(); }));
+      start();
     })();
   </script>
 </body>
