@@ -1,4 +1,10 @@
 {
+  "rewrites": [
+    {
+      "source": "/trainers",
+      "destination": "/trainers.html"
+    }
+  ],
   "redirects": [
     {
       "source": "/site/:path*",
