@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xaki for Trainers — Help Your Clients Eat Without the Flare</title>
+  <meta name="description" content="Your clients with IBS can't eat what you prescribe. Kai is a text-based gut-health companion that helps them hit their macros without triggering flares." />
+
+  <meta property="og:title" content="Xaki for Trainers — Help Your Clients Eat Without the Flare" />
+  <meta property="og:description" content="Your clients with IBS can't eat what you prescribe. Kai helps them hit their macros without triggering flares." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://xaki.com/trainers" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#fafafa" />
+  <meta name="color-scheme" content="light" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230a0a0a'/><path d='M8 22 L16 12 L24 22 M10 18 L22 18' stroke='%2300E5A3' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'Inter', 'system-ui', 'sans-serif'],
+            mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            ink: {
+              950: '#fafafa', 900: '#ffffff', 850: '#ffffff', 800: '#f4f4f5',
+              700: '#e8e8ec', 600: '#d4d4da', 500: '#a1a1aa', 400: '#71717a',
+              300: '#52525b', 200: '#27272a', 100: '#0a0a0a',
+            },
+            accent: {
+              DEFAULT: '#00875F', bright: '#00E5A3', deep: '#006F4D',
+              soft: '#00E5A31F', muted: '#00E5A333',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Geist', 'Inter', system-ui, sans-serif;
+      font-feature-settings: 'ss01', 'cv11';
+      background: #fafafa;
+      color: #0a0a0a;
+    }
+    .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+    .accent-glow {
+      background: radial-gradient(60% 50% at 50% 0%, rgba(0,229,163,0.18) 0%, rgba(0,229,163,0) 65%);
+    }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(10,10,10,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10,10,10,0.035) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at 50% 40%, #000 0%, #000 60%, transparent 95%);
+      -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 0%, #000 60%, transparent 95%);
+    }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .hairline { border-color: rgba(10,10,10,0.08); }
+    .divider-grad {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(10,10,10,0.08) 20%, rgba(10,10,10,0.08) 80%, transparent 100%);
+    }
+    .step-num {
+      font-family: 'Geist Mono', ui-monospace, monospace;
+      color: #006F4D;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+    .btn-primary {
+      background: #00E5A3;
+      color: #0a0a0a;
+      transition: background-color .2s ease, transform .2s ease;
+    }
+    .btn-primary:hover { background: #00D197; }
+    .btn-ghost {
+      background: transparent;
+      color: #0a0a0a;
+      border: 1px solid rgba(10,10,10,0.12);
+      transition: background-color .2s ease, border-color .2s ease;
+    }
+    .btn-ghost:hover { background: #f0f0f3; border-color: rgba(10,10,10,0.2); }
+    .card { background: #ffffff; border: 1px solid rgba(10,10,10,0.08); }
+    .lift { transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+    .lift:hover { transform: translateY(-2px); border-color: rgba(0,135,95,0.4); box-shadow: 0 12px 30px -12px rgba(0,0,0,0.1); }
+    .nav-blur { backdrop-filter: saturate(140%) blur(10px); -webkit-backdrop-filter: saturate(140%) blur(10px); }
+    :root { scroll-padding-top: 72px; }
+    :focus-visible { outline: 2px solid #00875F; outline-offset: 2px; border-radius: 6px; }
+
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,163,0.55); }
+      50%      { box-shadow: 0 0 0 8px rgba(0,229,163,0); }
+    }
+    .pulse-dot { animation: pulseDot 2.4s ease-in-out infinite; }
+
+    .chat-bubble {
+      position: relative;
+      max-width: 280px;
+    }
+    .chat-bubble-user {
+      background: #00E5A3;
+      color: #0a0a0a;
+      border-radius: 18px 18px 4px 18px;
+      margin-left: auto;
+    }
+    .chat-bubble-kai {
+      background: #ffffff;
+      border: 1px solid rgba(10,10,10,0.08);
+      color: #27272a;
+      border-radius: 18px 18px 18px 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .pulse-dot { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body class="bg-ink-950 text-ink-100 font-sans">
+
+  <!-- NAV -->
+  <header class="fixed top-0 inset-x-0 z-50 nav-blur border-b hairline bg-ink-950/80">
+    <nav class="max-w-5xl mx-auto h-[64px] px-5 sm:px-8 flex items-center justify-between" aria-label="Primary">
+      <a href="/" class="flex items-center gap-2">
+        <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M8 22 L16 12 L24 22 M10 18 L22 18" stroke="#00875F" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-[17px] font-semibold tracking-tight text-ink-100">xaki</span>
+        <span class="text-xs mono text-ink-400 ml-1">FOR TRAINERS</span>
+      </a>
+      <a href="mailto:hello@xaki.app?subject=Trainer%20Partnership" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full">
+        Get in touch
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </nav>
+  </header>
+
+  <main id="top" class="pt-[64px]">
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 grid-bg pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute inset-0 accent-glow pointer-events-none" aria-hidden="true"></div>
+
+      <div class="relative max-w-5xl mx-auto px-5 sm:px-8 pt-20 sm:pt-28 pb-20 sm:pb-24">
+        <div class="max-w-3xl">
+          <div class="reveal inline-flex items-center gap-2 text-xs mono text-ink-300 px-3 py-1 rounded-full card">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-bright pulse-dot"></span>
+            <span>FOR TRAINERS &amp; FUNCTIONAL PROFESSIONALS</span>
+          </div>
+
+          <h1 class="reveal mt-6 text-[40px] leading-[1.08] sm:text-6xl sm:leading-[1.04] font-semibold tracking-tight text-ink-100">
+            Your clients can't eat<br/>what you prescribe.
+          </h1>
+
+          <p class="reveal mt-6 max-w-2xl text-[17px] sm:text-lg text-ink-300 leading-relaxed">
+            Up to 1 in 4 adults have IBS. When you change their nutrition, their gut fights back. They don't tell you. They just stop making progress.
+          </p>
+
+          <p class="reveal mt-4 max-w-2xl text-[17px] sm:text-lg text-ink-200 leading-relaxed">
+            Kai is a text-based gut-health companion that helps your clients hit their macros without triggering flares. No app to download. They just text.
+          </p>
+
+          <div class="reveal mt-8 flex flex-wrap items-center gap-3">
+            <a href="mailto:hello@xaki.app?subject=Trainer%20Partnership" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-5 py-3 rounded-full">
+              Partner with us
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#how" class="btn-ghost inline-flex items-center gap-2 text-sm font-medium px-5 py-3 rounded-full">
+              How it works
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider-grad"></div>
+    </section>
+
+    <!-- THE BLIND SPOT -->
+    <section class="relative py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-5 sm:px-8">
+        <p class="reveal step-num">01 · THE BLIND SPOT</p>
+        <h2 class="reveal mt-4 text-3xl sm:text-[44px] font-semibold tracking-tight leading-[1.1] max-w-2xl text-ink-100">
+          You track their sets. Their macros. Their compliance.
+        </h2>
+
+        <div class="reveal mt-10 grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl card p-6">
+            <p class="text-4xl font-semibold text-ink-100">40%</p>
+            <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">of adults report functional gut issues. Most never mention it to their trainer.</p>
+          </div>
+          <div class="rounded-2xl card p-6">
+            <p class="text-4xl font-semibold text-ink-100">72%</p>
+            <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">of IBS sufferers say food triggers their symptoms. Nutrition changes make it worse before better.</p>
+          </div>
+          <div class="rounded-2xl card p-6">
+            <p class="text-4xl font-semibold text-ink-100">0</p>
+            <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">tools exist for trainers to track or understand their clients' gut health. Zero.</p>
+          </div>
+        </div>
+
+        <p class="reveal mt-10 text-[17px] sm:text-lg text-ink-200 leading-relaxed max-w-2xl">
+          You can't see the bloating after every high-protein meal. The energy crash from dairy. The flare that kills their next three training days. Your client suffers in silence, plateaus, and eventually churns.
+        </p>
+      </div>
+    </section>
+
+    <div class="divider-grad"></div>
+
+    <!-- WHAT KAI DOES -->
+    <section class="relative py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-5 sm:px-8">
+        <p class="reveal step-num">02 · MEET KAI</p>
+        <h2 class="reveal mt-4 text-3xl sm:text-[44px] font-semibold tracking-tight leading-[1.1] max-w-3xl text-ink-100">
+          The gut-health companion you can't be.
+        </h2>
+        <p class="reveal mt-6 text-[17px] text-ink-300 leading-relaxed max-w-2xl">
+          Kai lives in your client's text messages. No app to download. No forms to fill. They just text what they ate and how they feel. Kai does the rest.
+        </p>
+
+        <!-- SMS conversation mock -->
+        <div class="reveal mt-12 max-w-sm mx-auto">
+          <div class="rounded-2xl card p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.15)]">
+            <div class="flex items-center gap-2 text-xs mono text-ink-400 border-b hairline pb-3 mb-4">
+              <span class="w-6 h-6 rounded-full flex items-center justify-center" style="background: rgba(0,229,163,0.18); border: 1px solid rgba(0,135,95,0.4);">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#006F4D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22 L16 12 L24 22 M10 18 L22 18"/></svg>
+              </span>
+              <span class="text-accent-deep">KAI</span>
+              <span class="ml-auto text-ink-500">iMessage</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="chat-bubble chat-bubble-kai px-4 py-2.5">
+                <p class="text-[14px] leading-relaxed">Morning. How was your gut overnight?</p>
+              </div>
+              <div class="chat-bubble chat-bubble-user px-4 py-2.5">
+                <p class="text-[14px] leading-relaxed">Bloated after dinner, rough morning</p>
+              </div>
+              <div class="chat-bubble chat-bubble-kai px-4 py-2.5">
+                <p class="text-[14px] leading-relaxed">Got it. That's the third time after high-protein dinners this week. What if we split your evening protein across lunch and a late snack instead?</p>
+              </div>
+              <div class="chat-bubble chat-bubble-user px-4 py-2.5">
+                <p class="text-[14px] leading-relaxed">That could work, what would that look like</p>
+              </div>
+              <div class="chat-bubble chat-bubble-kai px-4 py-2.5">
+                <p class="text-[14px] leading-relaxed">Move 25g to lunch (add a chicken thigh). Late snack: Greek yogurt + banana at 8pm. Still hits 180g for the day. Want to try it tomorrow?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-grad"></div>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="relative py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-5 sm:px-8">
+        <p class="reveal step-num">03 · HOW IT WORKS</p>
+        <h2 class="reveal mt-4 text-3xl sm:text-[44px] font-semibold tracking-tight leading-[1.1] max-w-2xl text-ink-100">
+          Zero extra work for you.
+        </h2>
+
+        <ol class="mt-12 grid gap-6 sm:grid-cols-2">
+          <li class="reveal lift rounded-2xl card p-7">
+            <p class="step-num">STEP 01</p>
+            <h3 class="mt-4 text-xl font-semibold text-ink-100">You recommend Kai.</h3>
+            <p class="mt-3 text-[15px] text-ink-300 leading-relaxed">When a client mentions gut issues, bloating, or can't follow their meal plan, you point them to Kai. They text a number. That's it.</p>
+          </li>
+          <li class="reveal lift rounded-2xl card p-7">
+            <p class="step-num">STEP 02</p>
+            <h3 class="mt-4 text-xl font-semibold text-ink-100">Your client texts Kai.</h3>
+            <p class="mt-3 text-[15px] text-ink-300 leading-relaxed">"Had eggs and toast for breakfast." "Feeling bloated after lunch." "Good energy today." Natural language. No logging forms.</p>
+          </li>
+          <li class="reveal lift rounded-2xl card p-7">
+            <p class="step-num">STEP 03</p>
+            <h3 class="mt-4 text-xl font-semibold text-ink-100">Kai learns their triggers.</h3>
+            <p class="mt-3 text-[15px] text-ink-300 leading-relaxed">Kai correlates meals, symptoms, stress, and sleep over time. Spots patterns the client can't see. "You flare 80% of the time after dairy + a stressful day."</p>
+          </li>
+          <li class="reveal lift rounded-2xl card p-7">
+            <p class="step-num">STEP 04</p>
+            <h3 class="mt-4 text-xl font-semibold text-ink-100">Your client hits their targets.</h3>
+            <p class="mt-3 text-[15px] text-ink-300 leading-relaxed">Kai suggests meal swaps that still hit their macros without triggering flares. They follow your program. They make progress. They stay.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <div class="divider-grad"></div>
+
+    <!-- WHY THIS MATTERS TO YOU -->
+    <section class="relative py-20 sm:py-28">
+      <div class="max-w-5xl mx-auto px-5 sm:px-8">
+        <p class="reveal step-num">04 · WHY THIS MATTERS</p>
+        <h2 class="reveal mt-4 text-3xl sm:text-[44px] font-semibold tracking-tight leading-[1.1] max-w-3xl text-ink-100">
+          You solve a problem you couldn't solve before.
+        </h2>
+
+        <div class="reveal mt-12 grid md:grid-cols-2 gap-10">
+          <div class="space-y-8">
+            <div>
+              <h3 class="text-lg font-semibold text-ink-100">Better client outcomes.</h3>
+              <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">Clients who can actually eat what you prescribe make faster progress. No more "I tried but my stomach couldn't handle it."</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-ink-100">Less client churn.</h3>
+              <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">The clients who leave without explanation often leave because of invisible gut problems. Fix the root cause, keep the client.</p>
+            </div>
+          </div>
+          <div class="space-y-8">
+            <div>
+              <h3 class="text-lg font-semibold text-ink-100">Zero extra work.</h3>
+              <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">You don't learn a new platform. You don't track their gut for them. You recommend Kai the same way you'd recommend a foam roller or a food scale.</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-ink-100">You look smarter.</h3>
+              <p class="mt-2 text-[15px] text-ink-300 leading-relaxed">When your client says "I figured out dairy + stress is my trigger," that's a win you enabled. Trainers who solve the whole picture get referrals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-grad"></div>
+
+    <!-- THE GAP -->
+    <section class="relative py-20 sm:py-28">
+      <div class="max-w-4xl mx-auto px-5 sm:px-8">
+        <p class="reveal step-num">05 · THE GAP</p>
+        <h2 class="reveal mt-4 text-3xl sm:text-[44px] font-semibold tracking-tight leading-[1.1] max-w-3xl text-ink-100">
+          The fitness stack has a hole.
+        </h2>
+
+        <div class="reveal mt-10 rounded-2xl card overflow-hidden">
+          <div class="grid grid-cols-3 text-center">
+            <div class="p-6 border-b hairline border-r hairline">
+              <p class="text-xs mono text-ink-400">PROGRAMMING</p>
+              <p class="mt-2 text-[15px] font-medium text-ink-100">Trainerize</p>
+              <p class="text-[13px] text-ink-400">TrueCoach, Everfit</p>
+            </div>
+            <div class="p-6 border-b hairline border-r hairline">
+              <p class="text-xs mono text-ink-400">NUTRITION</p>
+              <p class="mt-2 text-[15px] font-medium text-ink-100">MyFitnessPal</p>
+              <p class="text-[13px] text-ink-400">Cronometer, MacroFactor</p>
+            </div>
+            <div class="p-6 border-b hairline">
+              <p class="text-xs mono text-ink-400">GUT HEALTH</p>
+              <p class="mt-2 text-[15px] font-medium text-accent-deep">Nothing.</p>
+              <p class="text-[13px] text-ink-400">Until Kai.</p>
+            </div>
+          </div>
+          <div class="p-5 text-center">
+            <p class="text-[15px] text-ink-300">No gut health tool integrates with the fitness ecosystem. Kai fills that gap.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-grad"></div>
+
+    <!-- DISCLAIMER -->
+    <section class="relative py-16 sm:py-20">
+      <div class="max-w-4xl mx-auto px-5 sm:px-8">
+        <p class="reveal text-ink-400 text-[15px] leading-relaxed max-w-2xl">
+          Kai is not a medical device or a replacement for clinical care. Kai helps your clients understand patterns in their food, symptoms, and lifestyle. For clinical gut conditions beyond IBS, clients should see a gastroenterologist.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="relative py-20 sm:py-28">
+      <div class="max-w-4xl mx-auto px-5 sm:px-8">
+        <p class="reveal step-num">FAQ</p>
+        <h2 class="reveal mt-4 text-3xl sm:text-[44px] font-semibold tracking-tight leading-[1.1] text-ink-100">
+          Common questions.
+        </h2>
+
+        <div class="reveal mt-12 space-y-6">
+          <details class="rounded-2xl card p-6 group" open>
+            <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-semibold text-ink-100">
+              Does Kai replace the nutritional guidance I give my clients?
+              <svg class="w-5 h-5 text-ink-400 shrink-0 transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <p class="mt-4 text-[15px] text-ink-300 leading-relaxed">
+              No. Kai doesn't write meal plans or override your programming. It helps your client follow the plan you already gave them by identifying which foods trigger their gut and suggesting swaps that still hit the macros you set. You stay in control of the nutrition strategy. Kai handles the gut side you don't have visibility into.
+            </p>
+          </details>
+
+          <details class="rounded-2xl card p-6 group">
+            <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-semibold text-ink-100">
+              What if my client has a diagnosed condition like IBD or celiac?
+              <svg class="w-5 h-5 text-ink-400 shrink-0 transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <p class="mt-4 text-[15px] text-ink-300 leading-relaxed">
+              Kai is designed for IBS and functional gut issues, not for managing diagnosed inflammatory bowel disease, celiac, or other clinical conditions. If your client has a diagnosed GI condition, they should be working with a gastroenterologist. Kai is a wellness tool that helps people understand patterns between their food, symptoms, and lifestyle. It doesn't diagnose, treat, or replace medical care.
+            </p>
+          </details>
+
+          <details class="rounded-2xl card p-6 group">
+            <summary class="flex items-center justify-between cursor-pointer list-none text-lg font-semibold text-ink-100">
+              How much does it cost my clients? Is there a cost to me?
+              <svg class="w-5 h-5 text-ink-400 shrink-0 transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <p class="mt-4 text-[15px] text-ink-300 leading-relaxed">
+              We're currently in early access. There's no cost to you as a trainer. For clients, core tracking is free. We're finalizing pricing for Kai's advanced pattern detection and personalized recommendations. If you want early access for your clients, reach out and we'll get you set up.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-grad"></div>
+
+    <!-- CLOSING CTA -->
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 accent-glow pointer-events-none" aria-hidden="true"></div>
+      <div class="relative max-w-4xl mx-auto px-5 sm:px-8 py-24 sm:py-32 text-center">
+        <h2 class="reveal text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05] text-ink-100">
+          Your clients are struggling<br/>in silence.
+        </h2>
+        <p class="reveal mt-6 text-ink-300 text-[17px] sm:text-lg max-w-xl mx-auto">
+          Give them Kai. They text what they ate and how they feel. Kai handles the rest.
+        </p>
+        <div class="reveal mt-10 flex flex-wrap items-center justify-center gap-3">
+          <a href="mailto:hello@xaki.app?subject=Trainer%20Partnership" class="btn-primary inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5 rounded-full">
+            Partner with us
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="/site" class="btn-ghost inline-flex items-center gap-2 text-sm font-medium px-6 py-3.5 rounded-full">
+            See the product
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t hairline bg-ink-950">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 py-10 flex flex-wrap items-center justify-between gap-6">
+      <div class="flex items-center gap-2">
+        <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M8 22 L16 12 L24 22 M10 18 L22 18" stroke="#00875F" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="text-[17px] font-semibold tracking-tight text-ink-100">xaki</span>
+      </div>
+      <div class="flex items-center gap-6 text-sm text-ink-400">
+        <a href="mailto:hello@xaki.app" class="hover:text-accent-deep transition-colors">hello@xaki.app</a>
+        <a href="/privacy" class="hover:text-accent-deep transition-colors">Privacy</a>
+        <a href="/terms" class="hover:text-accent-deep transition-colors">Terms</a>
+      </div>
+    </div>
+    <div class="border-t hairline">
+      <div class="max-w-5xl mx-auto px-5 sm:px-8 py-5 flex flex-wrap items-center justify-between gap-4 text-xs mono text-ink-400">
+        <span>&copy; <span id="year"></span> Xaki Health</span>
+        <span>Not a medical device. Insights are informational.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      }
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
